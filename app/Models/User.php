@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
+
 
 class User extends Authenticatable
 {
@@ -48,8 +50,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function generateUserName($username)
+    {
+        if($username === null){
+            $username = Str::Lower(Str::random(length:8));
+        }
+        if(User::where('username', $username)->exists()){
+            $nemUsername = $username.Str::Lower(Str::random(length:3));
+            $username = self::generateUserName($nemUsername);
+        }
+        return $username;
+    }
+      
     public function supports(): HasMany
     {
         return $this->hasMany(Support::class);
     }
+
 }

@@ -1,14 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\{ReplySupportController, SupportController};
-use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 use NunoMaduro\Collision\Provider;
 
 Route::get('/supports', [SupportController::class, 'index'])->name('supports.index');
-
 Route::get('/contato', [SiteController::class, 'contact']);
 
 Route::get('/', function () {
